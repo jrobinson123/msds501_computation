@@ -6,9 +6,11 @@
 # convert every reading to a float so we can compute the average.
 #
 # YOUR TASK (Task 2): Run this script and read the error.
-#   - What type of error is it?
-#   - Which line causes it?
+#   - What type of error is it? Value Error 
+#   - Which line causes it?  temp = float(r)       
 #   - Write a comment below explaining the cause.
+# We're not allowed to convert a string to a float, trying to do so throws a value error
+
 #
 # YOUR TASK (Task 3): Wrap the risky conversion in try/except.
 #   - Catch the specific error type (not bare except:)
@@ -32,9 +34,12 @@ readings = ['72.1', '68.5', 'N/A', '74.0', 'sensor_error', '69.3']
 valid = []
 
 for i, r in enumerate(readings):
-    temp = float(r)           # <-- this line crashes on bad strings
-    print(f'Reading [{i}]: {temp}')
-    valid.append(temp)
+    try: 
+        temp = float(r)       
+        print(f'Reading [{i}]: {temp}')
+        valid.append(temp)
+    except ValueError:
+        print(f'Bad input {i}: {r}')
 
 average = sum(valid) / len(valid)
 print(f'Average of valid readings: {round(average, 2)}')
